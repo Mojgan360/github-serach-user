@@ -5,16 +5,18 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 function App() {
   return (
     <Router>
-      <Route>
-        {' '}
-        <Dashboard></Dashboard>
-      </Route>
-      <Route>
-        {' '}
-        <Login />
-      </Route>
-
-      <Error />
+      <Switch>
+        <Route path='/' exact={true}>
+          <Dashboard></Dashboard>
+        </Route>
+        <Route path='/login'>
+          <Login />
+        </Route>
+        <Route path='*'>
+          {' '}
+          <Error />
+        </Route>
+      </Switch>
     </Router>
   )
 }
