@@ -1,10 +1,54 @@
-import React from 'react';
-import styled from 'styled-components';
-import { GithubContext } from '../context/context';
-import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
+import React from 'react'
+import styled from 'styled-components'
+import { GithubContext } from '../context/context'
+import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts'
 const Repos = () => {
-  return <h2>repos component</h2>;
-};
+  const { repos } = React.useContext(GithubContext)
+
+  let languages = repos.reduce((total, item) => {
+    const { language } = item
+    console.log('TOTAL:')
+    console.log(total)
+
+    if (!total[language]) {
+      total[language] = { label: language, value: 1 }
+    } else {
+      total[language] = {
+        ...total[language],
+        value: total[language].value + 1,
+      }
+    }
+    return total
+  }, {})
+  languages = Object.values(languages)
+    .sort((a, b) => {
+      return b.value - a.value
+    })
+    .slice(0, 5)
+  console.log(languages)
+
+  const chartData = [
+    {
+      label: 'HTMI',
+      value: '45',
+    },
+    {
+      label: 'css',
+      value: '85',
+    },
+    {
+      label: 'JavaScript',
+      value: '90',
+    },
+  ]
+  return (
+    <section className='section'>
+      <Wrapper className='section-center'>
+        <Pie3D data={languages} />
+      </Wrapper>
+    </section>
+  )
+}
 
 const Wrapper = styled.div`
   display: grid;
@@ -28,6 +72,6 @@ const Wrapper = styled.div`
     width: 100% !important;
     border-radius: var(--radius) !important;
   }
-`;
+`
 
-export default Repos;
+export default Repos
