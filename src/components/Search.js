@@ -10,6 +10,7 @@ const Search = () => {
   // get things from global context
   const handleSubmit = (e) => {
     e.preventDefault()
+    searchGithubUser(user)
     if (user) {
       setUser('')
     }
@@ -17,6 +18,11 @@ const Search = () => {
   return (
     <section className='section'>
       <Wrapper className='section-center'>
+        {error.show && (
+          <ErrorWrapper>
+            <p>{error.msg}</p>
+          </ErrorWrapper>
+        )}
         <form onSubmit={handleSubmit}>
           <div className='form-control'>
             <MdSearch />
