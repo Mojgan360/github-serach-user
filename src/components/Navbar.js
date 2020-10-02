@@ -13,6 +13,13 @@ const Navbar = () => {
   const isUser = isAuthenticated && user
   return (
     <Wrapper>
+      <button
+        onClick={() => {
+          logout({ returnTo: window.location.origin })
+        }}
+      >
+        logout
+      </button>{' '}
       <button onClick={loginWithRedirect}>login</button>
     </Wrapper>
   )
